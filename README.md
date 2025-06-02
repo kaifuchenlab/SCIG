@@ -23,20 +23,16 @@ For SCIGNet, the required inputs include the predicted cell identity scores obta
   tar -xf human_mouse_GRN.zip
   cd ..
   ```
-- Create a conda environment with Python:
+- Create a conda environment with Python and install SCIG
   ```sh
-  conda create -n scig (Python version >=3.9 preferable)
-  ```
-    ```sh
+  conda create -n scig python=3.10
   conda activate scig
-  ```
-- Install required all Python packages
-  ```sh
-  pip install -r requirements.txt
-  ```
--  install SCIG
-  ```sh
   pip install .
+  ```
+
+- Alternatively, install SCIG using [uv](https://github.com/astral-sh/uv)
+  ```sh
+  uv pip install .
   ```
 # Tutorial 
 - How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either bulk-RNA  or single-cell RNA sequencing profiles?

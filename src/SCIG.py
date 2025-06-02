@@ -17,7 +17,7 @@ from scig_mouse_functions import *
 path = os.getcwd()
 #print (path)
 os.chdir(path)
-def printHelp():
+def printHelp() -> None:
     
     print ("\nError found in your command. Kindly please go through the SCIG tutorial here:\n")
     print ("********************************************")
@@ -32,10 +32,10 @@ def printHelp():
     print ("To install SCIG and SCIGNet, run the following commands in the terminal/command prompt:\n")
     print ("1. Downloading the SCIG/SCIGNet package: enter 'git clone https://github.com/kulansam/CIGpred.git' \n")
     print ("2. Navigating into the SCIG folder: enter 'cd SCIG' \n")
-    print ("3. Creating conda environment for SCIG: enter 'conda create -n scig' (Python>=3.9 preferable)\n")
+    print ("3. Creating conda environment for SCIG: enter 'conda create -n scig python=3.10'\n")
     print ("4. Activating conda environment: enter 'conda activate scig' \n")
-    print ("5. Install required packages: enter 'pip install -r requirements.txt' \n")
-    print ("6. Compling the SCIG: enter 'pip install .' \n")
+    print ("5. Install SCIG: enter 'pip install .' \n")
+    print ("   Alternatively, you can use 'uv pip install .' if uv is installed.\n")
 
     print ("******************Tutorial:******************\n")
 

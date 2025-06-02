@@ -24,7 +24,14 @@ warnings.filterwarnings("ignore")
 
 
 tpm = norm()
-def pesudobulk_cigpred_human (inputtype_pred,exp_filename_pred,alll_seq_features1,gene_name_length1,training_table_human):
+
+def pesudobulk_cigpred_human(
+    inputtype_pred: str,
+    exp_filename_pred: pd.DataFrame,
+    alll_seq_features1: pd.DataFrame,
+    gene_name_length1: pd.DataFrame,
+    training_table_human: pd.DataFrame,
+) -> pd.DataFrame:
 
     gene_exp0=exp_filename_pred
     gene_name_map=gene_name_length1
@@ -132,7 +139,13 @@ def pesudobulk_cigpred_human (inputtype_pred,exp_filename_pred,alll_seq_features
     cig_score_gene_exp=cig_score_gene_exp.round(3)
     return cig_score_gene_exp
 
-def pesudobulk_cig_reg_pred_human (cig_pred_result,all_db_grn_human,tf_human,training_table_cigreg_human,celltype_names):
+def pesudobulk_cig_reg_pred_human(
+    cig_pred_result: pd.DataFrame,
+    all_db_grn_human: pd.DataFrame,
+    tf_human: pd.DataFrame,
+    training_table_cigreg_human: pd.DataFrame,
+    celltype_names: list[str],
+) -> pd.DataFrame:
     all_db_grn=all_db_grn_human
     cig_score_gene_exp=cig_pred_result
     tf_human.columns=['Geneid','TF']
@@ -275,7 +288,13 @@ def pesudobulk_cig_reg_pred_human (cig_pred_result,all_db_grn_human,tf_human,tra
     mas_tf_pred_final=mas_tf_pred_final.round(3)
     return mas_tf_pred_final
     
-def cig_pred_singlecell_human(adata,features,all_seq_features_human,training_table_human,exp_filename_pred):   
+def cig_pred_singlecell_human(
+    adata: anndata.AnnData,
+    features: pd.DataFrame,
+    all_seq_features_human: pd.DataFrame,
+    training_table_human: pd.DataFrame,
+    exp_filename_pred: str,
+) -> anndata.AnnData:
     adata=adata
     cell_ranger_file_name=exp_filename_pred
     all_seq_features1=all_seq_features_human    

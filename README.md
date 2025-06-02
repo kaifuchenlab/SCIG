@@ -1,4 +1,9 @@
-# Welcome to SCIG: A tool for Uncovering the Cell Identity Genes (CIGs) and their master transcription factors at single-cell levels, utilizing genetic sequence and RNA expression profiles
+SCIG
+====
+
+# Introduction
+
+Welcome to SCIG: A tool for Uncovering the Cell Identity Genes (CIGs) and their master transcription factors at single-cell levels, utilizing genetic sequence and RNA expression profiles
 In every cell type, a unique set of cell identity genes (CIGs) plays a pivotal role in defining its specific characteristics. Alongside other gene categories like housekeeping genes and heat shock genes, cells express their CIGs, crucial for guiding cellular differentiation and the formation of tissues and organs in organisms. Thus, we have developed two logistic regression-based machine-learning methodologies for the identification of cell identity genes (CIGs) and their master transcription factors:
 
 1. SCIG: SCIG: Uncovering  the cell identity genes in a given cell (s) using RNA expression and genetic sequence profiles.
@@ -9,43 +14,39 @@ In every cell type, a unique set of cell identity genes (CIGs) plays a pivotal r
 The input for SCIG consists of either raw read counts from bulk-seq or gene per cell unique molecular identifier (UMI) count matrix from single-cell sequencing data. In addition, SCIG automatically utilizes precomputed genetic sequence features during its prediction process.
 
 For SCIGNet, the required inputs include the predicted cell identity scores obtained from the SCIG algorithm, along with gene regulatory network (GRN) information. It's worth noting that the GRN information is already integrated into the model.
+
 # Installation
-- Download the SCIG package from GitHub:
-  ```sh
-  git clone https://github.com/kulansam/SCIG.git
-  ```
-  ```sh
-  cd SCIG
-  ```
-- Extract the required files in the data directory:
-  ```sh
-  cd data
-  tar -xf human_mouse_GRN.zip
-  cd ..
-  ```
-- Create a conda environment with Python and install SCIG
-  ```sh
-  conda create -n scig python=3.10
-  conda activate scig
-  pip install .
-  ```
 
-- Alternatively, install SCIG using [uv](https://github.com/astral-sh/uv)
-  ```sh
-  uv pip install .
-  ```
+Download the SCIG package from GitHub:
+
+```sh
+git clone https://github.com/kulansam/SCIG.git \
+  && cd SCIG
+```
+
+Create a conda environment with Python and install SCIG
+
+```sh
+conda create -n scig -y python=3.10 r-base \
+  && conda activate scig \
+  && pip install .
+```
+
 # Tutorial 
-- How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either bulk-RNA  or single-cell RNA sequencing profiles?
 
-  Run the following command under 'src' directory:
+How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either
+bulk-RNA or single-cell RNA sequencing profiles?
+
+Run the following command under 'src' directory:
   
-  ```sh
-    cd src
-    python SCIG.py -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm | umicount> -file <tab separated expression data file | cellranger output folder>
-  ```
-  ```sh
-    For more information:
-  
+```sh
+cd src
+python SCIG.py -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm | umicount> -file <tab separated expression data file | cellranger output folder>
+```
+
+Parameters:
+
+```sh
     -organism: Name of the organism.
 
                 1. For humans, the value should be "hs".
@@ -63,31 +64,35 @@ For SCIGNet, the required inputs include the predicted cell identity scores obta
     -file: name of the input file name with the tab-separated file format.
                 1. For bulk or pseudobulk data, the tab-separated file should contain the 'Genename' as the first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen)
                 2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
+```
 
-   # output: The output files will be written into the user input file directory
-    1. For bulk RNA seq data, SCIG outputs the cell identity gene information in the file name that has the combination of the user input file name with 'cig_pred_result.out' extension.
-       In case of single-cell RNA seq data, the output file has the extension of '_cig_matrix_out.h5ad'.
-  
-   2. SCIGNet outputs of master transcription factors of cell identity genes in the file name that has combination of user input file name with 'REG_pred_result.out' extension. 
+# output: The output files will be written into the user input file directory
+    
+1. For bulk RNA seq data, SCIG outputs the cell identity gene information in the file name that has the combination of the user input file name with 'cig_pred_result.out' extension.
+  * In case of single-cell RNA seq data, the output file has the extension of '_cig_matrix_out.h5ad'.
+2. SCIGNet outputs of master transcription factors of cell identity genes in the file name that has combination of user input file name with 'REG_pred_result.out' extension. 
 
 # Example 
-- Utilizing SCIG and SCIGNet for uncovering cell identity genes (CIGs) and their master transcription factors in mouse endothelial cells from different tissues (such as brain, lung, and liver) using bulk-RNA profiles.
 
-  Use the following command:
+Utilizing SCIG and SCIGNet for uncovering cell identity genes (CIGs) and their master transcription factors in mouse endothelial cells from different tissues (such as brain, lung, and liver) using bulk-RNA profiles.
+
+Use the following command:
   
-  ```sh
-    cd src
-    python SCIG.py -organism  mm -assaytype bulk -inputtype rawcount -file ../test/GSE185642_bulkRNAseq_mouse.txt
-  ```
-  ```sh
-    The output files will be written into the user input file directory (Here, under the 'test' directory).
+```sh
+cd src
+python SCIG.py -organism  mm -assaytype bulk -inputtype rawcount -file ../test/GSE185642_bulkRNAseq_mouse.txt
+```
+
+The output files will be written into the user input file directory (Here, under the 'test' directory).
   
 # Cite us
-  ```sh
-  Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features
-  ```
-   ```sh
+
+```sh
+Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features
+```
+
 # Term of Usage
+
 By accessing SCIG data, you agree to the following terms:
 
 1. You agree not to share the SCIG data, whether modified or unmodified, with individuals outside your research group. This includes preventing access by unauthorized individuals and refraining from directly providing the data to others.
@@ -99,4 +104,5 @@ By accessing SCIG data, you agree to the following terms:
 4. You certify that you are authorized to accept these terms on behalf of your institution.
 
 # Contact
+
 For any queries, contact  kulandai28@gmail.com, or Kaifu.Chen@childrens.harvard.edu. Copy right @ Dr.Kaifu Chen lab, @ Boston Children's Hospital, Harvard Medical School

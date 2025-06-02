@@ -19,48 +19,73 @@ path = os.getcwd()
 os.chdir(path)
 def printHelp() -> None:
     
-    print ("\nError found in your command. Kindly please go through the SCIG tutorial here:\n")
-    print ("********************************************")
-    print ("******************Welcome!******************")
-    print ("********************************************\n")
+    help_text = """
+Error found in your command. Kindly please go through the SCIG tutorial here:
 
-    print ("SCIG has following two functional modules:\n")
-    print ("i. SCIG: Specifying  the cell identity genes in a given cell (s) using RNA expression and genetic sequence profiles\n")
-    print ("ii. SCIGNet: Identifying the master transcription factors of cell identity genes network  (SCIG prediction result required)\n")
-    
-    print ("******************Installation:******************\n")
-    print ("To install SCIG and SCIGNet, run the following commands in the terminal/command prompt:\n")
-    print ("1. Downloading the SCIG/SCIGNet package: enter 'git clone https://github.com/kulansam/CIGpred.git' \n")
-    print ("2. Navigating into the SCIG folder: enter 'cd SCIG' \n")
-    print ("3. Creating conda environment for SCIG: enter 'conda create -n scig python=3.10'\n")
-    print ("4. Activating conda environment: enter 'conda activate scig' \n")
-    print ("5. Install SCIG: enter 'pip install .' \n")
-    print ("   Alternatively, you can use 'uv pip install .' if uv is installed.\n")
+********************************************
+******************Welcome!******************
+********************************************
 
-    print ("******************Tutorial:******************\n")
+SCIG has following two functional modules:
 
-    print ("To run SCIG and SCIGNet, enter the following command under the 'src' directory of SCIG folder (Available to download the Github page)\n")
-    print("  python SCIG.py -organism <hs> -assaytype <bulk> -inputtype <rawcount> -file <expression_data.txt>\n")
-    print(" Here, \n -organism : Name of the organism.\n 1. For humans, the value should be either 'hs'.\n 2. For mice, the value should be 'mm'. \n")
-    print("-assaytype: The input RNA expression data is would quantified either bulk or single-cell level:\n 1.  For bulk or pseudo bulk RNA data, the value is 'bulk'.\n 2. For Single-cell level data, the value is 'single'.\n\n")
-    print("-inputtype: The format of the input data differs based on the analysis level.\n\n 1. For bulk or pseudobulk data, the value is either 'rawcount' or 'tpm'.\n 2. For single-cell data, the value should be umicount.\n\n")
-    print(" if assaytype == bulk, the  -file: name of the input file name with the tab-separated file format \n(Example:/Users/Kulan/SCIG_input/input_rna_seq.txt, if file path has 'space' please use the backslash).\n")
-    print ("The  'input_rna_seq.txt' file should contains the 'Genename' as first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen \n")
-    print(" if assaytype == single, the  -file: The directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.\n\n")
-    print ("******************Output:******************\n")
+i. SCIG: Specifying  the cell identity genes in a given cell (s) using RNA expression and genetic sequence profiles
+ii. SCIGNet: Identifying the master transcription factors of cell identity genes network  (SCIG prediction result required)
 
-    print ("The output files will be write into user input file directory.\n")
-    print("1. SCIG outputs the cell identity gene information in the file name that has combination of the user input file name with 'cig_pred_result.out' extension.\n In case of single-cell RNA seq data, the output file has the extension of '_cig_matrix_out.h5ad' \n")
-    print("2. SCIGNet outputs of master transcription factors of cell identity genes in the file name that has combination of user input file name with 'REG_pred_result.out' extension.  \n")
+******************Installation:******************
 
+To install SCIG and SCIGNet, run the following commands in the terminal/command prompt:
 
+1. Downloading the SCIG/SCIGNet package: enter 'git clone https://github.com/kulansam/CIGpred.git' 
+2. Navigating into the SCIG folder: enter 'cd SCIG' 
+3. Creating conda environment for SCIG: enter 'conda create -n scig python=3.10'
+4. Activating conda environment: enter 'conda activate scig' 
+5. Install SCIG: enter 'pip install .' 
+   Alternatively, you can use 'uv pip install .' if uv is installed.
 
-    print ("***************************************************************************")
-    print ("******************Thanks for using our SCIG for your research work*********")
-    print ("***************************************************************************\n")
-    print ("Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features'\n")
-    
-    print ("For any queries, contact  kulandai28@gmail.com, or Kaifu.Chen@childrens.harvard.edu. Copy right @ Dr.Kaifu Chen lab, @ Boston Children's Hospital, Harvard Medical School\n")
+******************Tutorial:******************
+
+To run SCIG and SCIGNet, enter the following command under the 'src' directory of SCIG folder (Available to download the Github page)
+  python SCIG.py -organism <hs> -assaytype <bulk> -inputtype <rawcount> -file <expression_data.txt>
+
+ Here, 
+ -organism : Name of the organism.
+ 1. For humans, the value should be either 'hs'.
+ 2. For mice, the value should be 'mm'. 
+
+-assaytype: The input RNA expression data is would quantified either bulk or single-cell level:
+ 1.  For bulk or pseudo bulk RNA data, the value is 'bulk'.
+ 2. For Single-cell level data, the value is 'single'.
+
+-inputtype: The format of the input data differs based on the analysis level.
+
+ 1. For bulk or pseudobulk data, the value is either 'rawcount' or 'tpm'.
+ 2. For single-cell data, the value should be umicount.
+
+ if assaytype == bulk, the  -file: name of the input file name with the tab-separated file format 
+(Example:/Users/Kulan/SCIG_input/input_rna_seq.txt, if file path has 'space' please use the backslash).
+
+The  'input_rna_seq.txt' file should contains the 'Genename' as first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen 
+
+ if assaytype == single, the  -file: The directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
+
+******************Output:******************
+
+The output files will be write into user input file directory.
+
+1. SCIG outputs the cell identity gene information in the file name that has combination of the user input file name with 'cig_pred_result.out' extension.
+ In case of single-cell RNA seq data, the output file has the extension of '_cig_matrix_out.h5ad' 
+
+2. SCIGNet outputs of master transcription factors of cell identity genes in the file name that has combination of user input file name with 'REG_pred_result.out' extension.  
+
+***************************************************************************
+******************Thanks for using our SCIG for your research work*********
+***************************************************************************
+
+Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features'
+
+For any queries, contact  kulandai28@gmail.com, or Kaifu.Chen@childrens.harvard.edu. Copy right @ Dr.Kaifu Chen lab, @ Boston Children's Hospital, Harvard Medical School
+"""
+    print(help_text)
 #print(sys.argv)
 #print(len(sys.argv))
 

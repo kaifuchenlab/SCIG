@@ -27,10 +27,12 @@ dependencies = [
     "requests>=2.5.1"
 ]
 
+[project.scripts]
+SCIG = "SCIG:main"
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 py-modules = ["SCIG", "scig_human_functions", "scig_mouse_functions"]
-script-files = ["src/SCIG.py"]
 include-package-data = true
 
 [tool.setuptools.package-data]

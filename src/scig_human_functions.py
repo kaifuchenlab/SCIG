@@ -32,6 +32,18 @@ def pesudobulk_cigpred_human(
     gene_name_length1: pd.DataFrame,
     training_table_human: pd.DataFrame,
 ) -> pd.DataFrame:
+    """
+    Predict CIGs in a pseudobulk of cells
+
+    Args:
+        inputtype_pred: The type of input data
+        exp_filename_pred: The filename of the expression data
+        alll_seq_features1: The sequence features
+        gene_name_length1: The gene name and length
+        training_table_human: The training table
+    Returns:
+        A DataFrame with the CIG predictions
+    """
 
     gene_exp0=exp_filename_pred
     gene_name_map=gene_name_length1
@@ -146,6 +158,18 @@ def pesudobulk_cig_reg_pred_human(
     training_table_cigreg_human: pd.DataFrame,
     celltype_names: list[str],
 ) -> pd.DataFrame:
+    """
+    Predict master transcription factors of CIGs in a pseudobulk of cells
+
+    Args:
+        cig_pred_result: The CIG predictions
+        all_db_grn_human: The GRN
+        tf_human: The master transcription factors
+        training_table_cigreg_human: The training table
+        celltype_names: The cell type names
+    Returns:
+        A DataFrame with the master transcription factor predictions
+    """
     all_db_grn=all_db_grn_human
     cig_score_gene_exp=cig_pred_result
     tf_human.columns=['Geneid','TF']
@@ -295,6 +319,18 @@ def cig_pred_singlecell_human(
     training_table_human: pd.DataFrame,
     exp_filename_pred: str,
 ) -> anndata.AnnData:
+    """
+    Predict CIGs in a single cell
+
+    Args:
+        adata: The AnnData object
+        features: The features
+        all_seq_features_human: The sequence features
+        training_table_human: The training table
+        exp_filename_pred: The filename of the expression data
+    Returns:
+        An AnnData object with the CIG predictions
+    """
     adata=adata
     cell_ranger_file_name=exp_filename_pred
     all_seq_features1=all_seq_features_human    

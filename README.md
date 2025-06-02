@@ -37,11 +37,10 @@ conda create -n scig -y python=3.10 r-base \
 How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either
 bulk-RNA or single-cell RNA sequencing profiles?
 
-Run the following command under 'src' directory:
+Run the following command:
   
 ```sh
-cd src
-python SCIG.py -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm | umicount> -file <tab separated expression data file | cellranger output folder>
+SCIG -organism <hs | mm> -assaytype <bulk | single> -inputtype <rawcount | tpm | umicount> -file <tab separated expression data file | cellranger output folder>
 ```
 
 Parameters:
@@ -79,8 +78,7 @@ Utilizing SCIG and SCIGNet for uncovering cell identity genes (CIGs) and their m
 Use the following command:
   
 ```sh
-cd src
-python SCIG.py -organism  mm -assaytype bulk -inputtype rawcount -file ../test/GSE185642_bulkRNAseq_mouse.txt
+SCIG -organism mm -assaytype bulk -inputtype rawcount -file test/GSE185642_bulkRNAseq_mouse.txt
 ```
 
 The output files will be written into the user input file directory (Here, under the 'test' directory).

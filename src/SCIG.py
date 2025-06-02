@@ -20,89 +20,45 @@ os.chdir(path)
 def printHelp() -> None:
     
     help_text = """
-Error found in your command. Kindly please go through the SCIG tutorial here:
-
-********************************************
-******************Welcome!******************
-********************************************
-
-SCIG has following two functional modules:
-
-i. SCIG: Specifying  the cell identity genes in a given cell (s) using RNA expression and genetic sequence profiles
-ii. SCIGNet: Identifying the master transcription factors of cell identity genes network  (SCIG prediction result required)
-
-******************Installation:******************
-
-To install SCIG and SCIGNet, run the following commands in the terminal/command prompt:
-
-1. Downloading the SCIG/SCIGNet package: enter 'git clone https://github.com/kulansam/CIGpred.git' 
-2. Navigating into the SCIG folder: enter 'cd SCIG' 
-3. Creating conda environment for SCIG: enter 'conda create -n scig python=3.10'
-4. Activating conda environment: enter 'conda activate scig' 
-5. Install SCIG: enter 'pip install .' 
-   Alternatively, you can use 'uv pip install .' if uv is installed.
-
-******************Tutorial:******************
-
-To run SCIG and SCIGNet, enter the following command under the 'src' directory of SCIG folder (Available to download the Github page)
-  python SCIG.py -organism <hs> -assaytype <bulk> -inputtype <rawcount> -file <expression_data.txt>
-
- Here, 
- -organism : Name of the organism.
- 1. For humans, the value should be either 'hs'.
- 2. For mice, the value should be 'mm'. 
-
--assaytype: The input RNA expression data is would quantified either bulk or single-cell level:
- 1.  For bulk or pseudo bulk RNA data, the value is 'bulk'.
- 2. For Single-cell level data, the value is 'single'.
-
--inputtype: The format of the input data differs based on the analysis level.
-
- 1. For bulk or pseudobulk data, the value is either 'rawcount' or 'tpm'.
- 2. For single-cell data, the value should be umicount.
-
- if assaytype == bulk, the  -file: name of the input file name with the tab-separated file format 
-(Example:/Users/Kulan/SCIG_input/input_rna_seq.txt, if file path has 'space' please use the backslash).
-
-The  'input_rna_seq.txt' file should contains the 'Genename' as first column name and followed by expression values of cell type (s). Example: Genename<tab>celltype1<tab>..celltypen 
-
- if assaytype == single, the  -file: The directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
-
-******************Output:******************
-
-The output files will be write into user input file directory.
-
-1. SCIG outputs the cell identity gene information in the file name that has combination of the user input file name with 'cig_pred_result.out' extension.
- In case of single-cell RNA seq data, the output file has the extension of '_cig_matrix_out.h5ad' 
-
-2. SCIGNet outputs of master transcription factors of cell identity genes in the file name that has combination of user input file name with 'REG_pred_result.out' extension.  
-
-***************************************************************************
-******************Thanks for using our SCIG for your research work*********
-***************************************************************************
-
-Please cite our paper 'Kulandaisamy Arulsamy, Bo Xia,  Lili Zhang, Hong Chen & Kaifu Chen (2024). Machine Learning Uncovers Cell Identity Genes in Single Cells by Genetic Sequence Features'
-
-For any queries, contact  kulandai28@gmail.com, or Kaifu.Chen@childrens.harvard.edu. Copy right @ Dr.Kaifu Chen lab, @ Boston Children's Hospital, Harvard Medical School
+Error found in your command. See the README for more information on using SCIG.
 """
     print(help_text)
-#print(sys.argv)
-#print(len(sys.argv))
 
-if (len(sys.argv) ==9):
-    parser = argparse.ArgumentParser(usage="...",description='', epilog="Chen lab, Boston Children’s Hospital/Harvard Medical School")
-    parser.add_argument('-organism', dest='organism', type=str, help='Mention the organism name of a sample/data')
-    parser.add_argument('-assaytype', dest='assaytype', type=str, help='Type of the data either bulk/pseudobulk or single-cell RNA expression data')
-    parser.add_argument('-inputtype', dest='inputtype', type=str, help='Mention whether the expression values are in TPM or in raw count')
-    parser.add_argument('-file', dest='file', type=str, help='Mention a filename that contains the expression values of genes')
+def main() -> None:
+    # parse arguments
+    class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter,
+                      argparse.RawDescriptionHelpFormatter):
+        pass
 
-
+    parser = argparse.ArgumentParser(
+        usage="...",description='', 
+        epilog="Chen lab, Boston Children's Hospital/Harvard Medical School", 
+        formatter_class=CustomFormatter
+    )
+    parser.add_argument(
+        '-organism', dest='organism', type=str, 
+        help='Mention the organism name of a sample/data'
+    )
+    parser.add_argument(
+        '-assaytype', dest='assaytype', type=str, 
+        help='Type of the data either bulk/pseudobulk or single-cell RNA expression data'
+    )
+    parser.add_argument(
+        '-inputtype', dest='inputtype', type=str,
+        help='Mention whether the expression values are in TPM or in raw count'
+    )
+    parser.add_argument(
+        '-file', dest='file', type=str, help='Mention a filename that contains the expression values of genes'
+    )
     args = parser.parse_args()
     if args is not None:
         organism_name_pred = args.organism
         assaytype_pred = args.assaytype
         inputtype_pred = args.inputtype
         exp_filename_pred = args.file
+    else:
+        printHelp()
+        sys.exit(1)
         
     ##add sequence features and model training table
     if organism_name_pred =='hs':
@@ -184,6 +140,7 @@ if (len(sys.argv) ==9):
         adata_single_cell_cig=cig_pred_singlecell_mouse(adata,features,all_seq_features_mouse,training_table_mouse,exp_filename_pred)
         adata_single_cell_cig.T.write_h5ad(str(exp_filename_pred)+"_cig_matrix_out.h5ad")
 
-else:  
-    printHelp()
+
+if __name__ == "__main__":
+    main()
     

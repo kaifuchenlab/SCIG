@@ -32,6 +32,20 @@ conda create -n scig -y python=3.10 r-base \
   && pip install .
 ```
 
+# Testing (optional)
+
+Install the development dependencies:
+
+```sh
+pip install ".[dev]"
+```
+
+Run all tests:
+
+```sh
+pytest test/
+```
+
 # Tutorial 
 
 How to use SCIG and SCIGNet to uncover the cell identity genes (CIGs) and their master transcription factors using either

@@ -65,7 +65,9 @@ Parameters:
                 2. For single-cell data, the directory path for the Cell Ranger output folder. It should contain the following files: barcodes.tsv, features.tsv, and matrix.mtx.
 ```
 
-# output: The output files will be written into the user input file directory
+# Output
+
+The output files will be written into the user input file directory
     
 1. For bulk RNA seq data, SCIG outputs the cell identity gene information in the file name that has the combination of the user input file name with 'cig_pred_result.out' extension.
   * In case of single-cell RNA seq data, the output file has the extension of '_cig_matrix_out.h5ad'.

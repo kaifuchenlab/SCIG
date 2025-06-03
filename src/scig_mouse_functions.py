@@ -19,7 +19,26 @@ warnings.filterwarnings("ignore")
 
 
 tpm = norm()
-def pesudobulk_cigpred_mouse (inputtype_pred,exp_filename_pred,alll_seq_features1,gene_name_length1,training_table_mouse):
+
+def pesudobulk_cigpred_mouse(
+    inputtype_pred: str,
+    exp_filename_pred: pd.DataFrame,
+    alll_seq_features1: pd.DataFrame,
+    gene_name_length1: pd.DataFrame,
+    training_table_mouse: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Predict CIGs in a pseudobulk of cells
+
+    Args:
+        inputtype_pred: The type of input data
+        exp_filename_pred: The filename of the expression data
+        alll_seq_features1: The sequence features
+        gene_name_length1: The gene name and length
+        training_table_mouse: The training table
+    Returns:
+        A DataFrame with the CIG predictions
+    """
 
     gene_exp0=exp_filename_pred
     gene_name_map=gene_name_length1
@@ -127,7 +146,25 @@ def pesudobulk_cigpred_mouse (inputtype_pred,exp_filename_pred,alll_seq_features
     cig_score_gene_exp=cig_score_gene_exp.round(3)
     return cig_score_gene_exp
 
-def pesudobulk_cig_reg_pred_mouse (cig_pred_result,all_db_grn_mouse,tf_mouse,training_table_cigreg_mouse,celltype_names):
+def pesudobulk_cig_reg_pred_mouse(
+    cig_pred_result: pd.DataFrame,
+    all_db_grn_mouse: pd.DataFrame,
+    tf_mouse: pd.DataFrame,
+    training_table_cigreg_mouse: pd.DataFrame,
+    celltype_names: list[str],
+) -> pd.DataFrame:
+    """
+    Predict master transcription factors of CIGs in a pseudobulk of cells
+
+    Args:
+        cig_pred_result: The CIG predictions
+        all_db_grn_mouse: The GRN
+        tf_mouse: The master transcription factors
+        training_table_cigreg_mouse: The training table
+        celltype_names: The cell type names
+    Returns:
+        A DataFrame with the master transcription factor predictions
+    """
     all_db_grn=all_db_grn_mouse
     cig_score_gene_exp=cig_pred_result
     tf_mouse.columns=['Geneid','TF']
@@ -270,7 +307,21 @@ def pesudobulk_cig_reg_pred_mouse (cig_pred_result,all_db_grn_mouse,tf_mouse,tra
     mas_tf_pred_final=mas_tf_pred_final.round(3)
     return mas_tf_pred_final
 
-def cig_pred_singlecell(all_seq_features1,cell_ranger_file_name,training_table_mouse):    
+def cig_pred_singlecell(
+    all_seq_features1: pd.DataFrame,
+    cell_ranger_file_name: str,
+    training_table_mouse: pd.DataFrame,
+) -> anndata.AnnData:
+    """
+    Predict CIGs in a single cell
+
+    Args:
+        all_seq_features1: The sequence features
+        cell_ranger_file_name: The filename of the expression data
+        training_table_mouse: The training table
+    Returns:
+        An AnnData object with the CIG predictions
+    """
     barcodes = pd.read_csv(str(cell_ranger_file_name)+"barcodes.tsv",sep="\t",header=None)
     barcodes.columns=['barcode']
     features = pd.read_csv(str(cell_ranger_file_name)+"features.tsv",sep="\t",header=None)
